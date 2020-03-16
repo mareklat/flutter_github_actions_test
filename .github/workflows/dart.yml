@@ -4,8 +4,8 @@ on:
     branches:   
       - master
 jobs:
-  update:
-    name: Update lib version
+  release:
+    name: Reease new plugin version to pub.dev
     runs-on: ubuntu-latest
     if: startsWith(github.event.commits[0].message, 'library file version')
     container:
@@ -25,13 +25,6 @@ jobs:
           git add pubspec.yaml
           git commit -m "Release version $newVersion" -a
           git push origin master
-  publish:
-    name: Publish to pub.dev
-    runs-on: ubuntu-latest
-    if: startsWith(github.event.commits[0].message, 'Release')
-    container:
-      image:  google/dart:latest
-    steps:
       - name: Setup credentials
         run: |
           mkdir -p ~/.pub-cache
