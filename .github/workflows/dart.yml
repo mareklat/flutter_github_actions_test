@@ -16,7 +16,7 @@ jobs:
           version=$(grep -A 0 'version:' pubspec.yaml | sed 's/^.*: //')
           lastNumber=$(echo $version | grep -Eo '[0-9]+$')
           lastNumber=$((lastNumber+1))
-          newVersion=$("${version%.*}.${lastNumber}")
+          newVersion=$("echo ${version%.*}.${lastNumber}")
           sed -i "s/^version: .*$/version: $newVersion/" pubspec.yaml
           echo $newVersion
           cat pubspec.yaml
