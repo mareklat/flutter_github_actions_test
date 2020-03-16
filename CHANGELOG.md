@@ -7,8 +7,8 @@
 * Add github action$
 
 ## 0.0.6
-$
-* New library file$
+
+* New library file
 
 ## 0.0.7
 
