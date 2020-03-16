@@ -10,7 +10,7 @@ jobs:
       image:  google/dart:latest
     steps:
       - name: Acton run when version in commit provied
-      - run: echo "Version in commit ${{ github.event.commits[0].message }}"
+        run: echo "Version in commit ${{ github.event.commits[0].message }}"
 
 
 #    - uses: actions/checkout@v1
