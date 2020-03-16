@@ -18,8 +18,14 @@ jobs:
           lastNumber=$((lastNumber+1))
           newVersion=$(echo "${version%.*}.${lastNumber}")
           sed -i "s/^version: .*$/version: $newVersion/" pubspec.yaml
-          echo $newVersion
-          cat pubspec.yaml
+      - name: Commit changes
+        if: startsWith(github.event.commits[0].message, 'library file version')
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add pubspec.yaml
+          git status
+#          git commit -m "Update version ${{newVersion}}" -a
       - name: Setup credentials
         if: startsWith(github.event.commits[0].message, 'Release')
         run: |
