@@ -4,7 +4,8 @@ on:
     branches:   
       - master
 jobs:
-  build:
+  update:
+    name: Update lib version
     runs-on: ubuntu-latest
     if: startsWith(github.event.commits[0].message, 'library file version')
     container:
@@ -25,6 +26,7 @@ jobs:
           git commit -m "Release version $newVersion" -a
           git push origin master
   publish:
+    name: Publish to pub.dev
     runs-on: ubuntu-latest
     if: startsWith(github.event.commits[0].message, 'Release')
     container:
