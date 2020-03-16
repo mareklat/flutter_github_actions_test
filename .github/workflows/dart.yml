@@ -9,6 +9,7 @@ jobs:
     container:
       image:  google/dart:latest
     steps:
+      - uses: actions/checkout@master
       - name: Update plugin version
         if: startsWith(github.event.commits[0].message, 'library file version')
         run: |
