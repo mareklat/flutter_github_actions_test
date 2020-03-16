@@ -1,6 +1,6 @@
 name: githubactionstest
 description: A new Flutter plugin.
-version: 0.0.3
+version: 0.0.4
 homepage: https://github.com/mareklat/flutter_github_actions_test
 
 environment:
