@@ -13,9 +13,10 @@ jobs:
         if: startsWith(github.event.commits[0].message, 'library file version')
         run: |
           ls
-          version=$(grep -A 0 'version:' ./pubspec.yaml | sed 's/^.*: //')
+          version=$(grep -A 0 'version:' flutter_github_actions_test/pubspec.yaml | sed 's/^.*: //')
           echo $version
           echo "Siemanko"
+          git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
       - name: Setup credentials
         if: startsWith(github.event.commits[0].message, 'Release')
         run: |
