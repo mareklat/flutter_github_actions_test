@@ -6,25 +6,31 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: startsWith(github.event.commits[0].message, 'library file version')
     container:
       image:  google/dart:latest
     steps:
       - uses: actions/checkout@master
       - name: Update plugin version
-        if: startsWith(github.event.commits[0].message, 'library file version')
         run: |
           version=$(grep -A 0 'version:' pubspec.yaml | sed 's/^.*: //')
           lastNumber=$(echo $version | grep -Eo '[0-9]+$')
           lastNumber=$((lastNumber+1))
           newVersion=$(echo "${version%.*}.${lastNumber}")
           sed -i "s/^version: .*$/version: $newVersion/" pubspec.yaml
+
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add pubspec.yaml
-          git commit -m "Update version $newVersion" -a
+          git commit -m "Release version $newVersion" -a
           git push origin master
+  publish:
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.commits[0].message, 'Release')
+    container:
+      image:  google/dart:latest
+    steps:
       - name: Setup credentials
-        if: startsWith(github.event.commits[0].message, 'Release')
         run: |
           mkdir -p ~/.pub-cache
           cat <<EOF > ~/.pub-cache/credentials.json
@@ -37,5 +43,4 @@ jobs:
           }
           EOF
       - name: Publish package
-        if: startsWith(github.event.commits[0].message, 'Release')
         run: pub publish -f
