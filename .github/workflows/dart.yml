@@ -13,11 +13,13 @@ jobs:
       - name: Update plugin version
         if: startsWith(github.event.commits[0].message, 'library file version')
         run: |
-          ls
           version=$(grep -A 0 'version:' pubspec.yaml | sed 's/^.*: //')
-          echo $version
-          echo "Siemanko"
-          cat /github/workspace/pubspec.yaml
+          lastNumber=$(echo $version | grep -Eo '[0-9]+$')
+          lastNumber=$((lastNumber+1))
+          newVersion=$("${version%.*}.${lastNumber}")
+          sed -i "s/^version: .*$/version: $newVersion/" pubspec.yaml
+          echo $newVersion
+          cat pubspec.yaml
       - name: Setup credentials
         if: startsWith(github.event.commits[0].message, 'Release')
         run: |
