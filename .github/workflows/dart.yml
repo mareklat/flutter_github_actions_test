@@ -20,6 +20,10 @@ jobs:
           newVersion=$(echo "${version%.*}.${lastNumber}")
           sed -i "s/^version: .*$/version: $newVersion/" pubspec.yaml
 
+          echo -n $'\n\n## ' >> CHANGELOG.md
+          echo "$newVersion" >> CHANGELOG.md
+          echo -n $'\n* New library file' >> CHANGELOG.md
+
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add pubspec.yaml
