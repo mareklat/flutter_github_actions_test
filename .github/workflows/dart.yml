@@ -24,8 +24,12 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add pubspec.yaml
-          git status
-#          git commit -m "Update version ${{newVersion}}" -a
+          git commit -m "Update version ${{newVersion}}" -a
+          git push origi master
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
       - name: Setup credentials
         if: startsWith(github.event.commits[0].message, 'Release')
         run: |
