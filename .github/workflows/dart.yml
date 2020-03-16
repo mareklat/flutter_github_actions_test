@@ -23,4 +23,4 @@ jobs:
         }
         EOF
     - name: Publish package
-      run: pub publish
+      run: pub publish -f
