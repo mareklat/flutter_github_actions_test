@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Update plugin version
         uses: actions/checkout@v1
-        if: !startsWith(github.event.commits[0].message, 'library file version')
+        if: startsWith(github.event.commits[0].message, 'library file version')
         run: |
           version=$(grep -A 0 'version:' pubspec.yaml | sed 's/^.*: //')
           echo $version
