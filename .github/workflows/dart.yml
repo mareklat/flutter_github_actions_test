@@ -5,7 +5,7 @@ on:
       - master
 jobs:
   release:
-    name: Reease new plugin version to pub.dev
+    name: Release new plugin version to pub.dev
     runs-on: ubuntu-latest
     if: startsWith(github.event.commits[0].message, 'library file version')
     container:
@@ -22,7 +22,8 @@ jobs:
 
           echo -n $'\n\n## ' >> CHANGELOG.md
           echo "$newVersion" >> CHANGELOG.md
-          echo -n $'\n* New library file' >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo -n "* New library file" >> CHANGELOG.md
 
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
