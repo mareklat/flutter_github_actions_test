@@ -5,11 +5,12 @@ on:
       - master
 jobs:
   build:
+    if: startsWith(github.event.commits[0].message, 'library file version')
     runs-on: ubuntu-latest
     container:
       image:  google/dart:latest
     steps:
-      - name: Acton run when version in commit provied
+      - name: Print lib version
         run: echo "Version in commit ${{ github.event.commits[0].message }}"
 
 
