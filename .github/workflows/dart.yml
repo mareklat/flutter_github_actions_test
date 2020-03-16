@@ -13,7 +13,7 @@ jobs:
         if: startsWith(github.event.commits[0].message, 'library file version')
         run: |
           ls
-          version=$(grep -A 0 'version:' pubspec.yaml | sed 's/^.*: //')
+          version=$(grep -A 0 'version:' ./pubspec.yaml | sed 's/^.*: //')
           echo $version
           echo "Siemanko"
       - name: Setup credentials
